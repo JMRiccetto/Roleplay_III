@@ -7,13 +7,20 @@
         {
             Wizard gandalf;
 
+            Staff staff;
+
+            SpellOne spell;
+
+            SpellsBook spellsBook;
+
             [SetUp]
             public void Setup()
             {
-                SpellsBook book = new SpellsBook();
-                book.AddSpell(new SpellOne());
+                this.spellsBook = new SpellsBook();
+                this.spell = new SpellOne();
+                spellsBook.AddSpell(this.spell);
                 this.gandalf = new Wizard("Gandalf");
-                this.gandalf.AddItem(book);
+                this.gandalf.AddItem(this.spellsBook);
             }
 
             //Test que demuestra que es posible asignar un nombre distinto.
@@ -64,6 +71,49 @@
                 this.gandalf.ReceiveAttack(this.gandalf.AttackValue * 3);
                 this.gandalf.Cure();
                 Assert.AreEqual(this.gandalf.Health, 100);
+            }
+
+            //Test que demuestra que se le puede añadir un item nuevo a un personaje correctamente.
+            [Test]
+            public void AddItemTest()
+            {
+
+                this.staff = new Staff();
+                this.gandalf.AddItem(staff);
+                int expectedAttack = 270;
+                Assert.AreEqual(this.gandalf.AttackValue, expectedAttack);
+            }
+
+            //Test que demuestra que se le puede remover un item nuevo a un personaje correctamente.
+            [Test]
+            public void RemoveItemTest()
+            {    
+                this.staff = new Staff();
+                this.gandalf.AddItem(staff);
+                this.gandalf.RemoveItem(staff);
+                int expectedAttack = 170;
+                Assert.AreEqual(this.gandalf.AttackValue, expectedAttack);
+            }
+
+            //Test que demuestra que se le puede añadir un item mágico nuevo a un personaje correctamente.
+            [Test]
+            public void AddMagicalItemTest()
+            {
+                SpellOne spell = new SpellOne();
+                this.spellsBook.AddSpell(spell);
+                int expectedAttack = 240;
+                Assert.AreEqual(this.gandalf.AttackValue, expectedAttack);
+            }
+
+            //Test que demuestra que se le puede remover un item mágico nuevo a un personaje correctamente.
+            [Test]
+            public void RemoveMagicalItemTest()
+            {        
+                SpellOne spell = new SpellOne();
+                this.spellsBook.AddSpell(spell);
+                this.spellsBook.RemoveSpell(spell);
+                int expectedAttack = 170;
+                Assert.AreEqual(this.gandalf.AttackValue, expectedAttack);
             }
         }
     }
