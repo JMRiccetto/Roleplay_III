@@ -1,6 +1,6 @@
 namespace RoleplayGame
 {
-    public class MagicalItem
+    public abstract class MagicalItem
     {
         public virtual int AttackValue { get; }
 

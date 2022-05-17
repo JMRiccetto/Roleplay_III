@@ -9,23 +9,13 @@ namespace Test.Library
 
         Sword sword;
 
-        Shield shield;
-
-        Armor armor;
-
         [SetUp]
         public void Setup()
         {
             this.arthur = new Knight("arthur");
-            this.sword = new Sword();
-            this.shield = new Shield();
-            this.armor = new Armor();
-            this.arthur.AddItem(sword);
-            this.arthur.AddItem(shield);
-            this.arthur.AddItem(armor);
         }
 
-//Test que demuestra que es posible asignar un nombre distinto.
+        //Test que demuestra que es posible asignar un nombre distinto.
         [Test]
         public void ValidNameTest()
         {
@@ -44,7 +34,7 @@ namespace Test.Library
         [Test]
         public void AttackValue()
         {
-            int expectedAttack = 40;
+            int expectedAttack = 20;
             Assert.AreEqual(expectedAttack, this.arthur.AttackValue);
         }
 
@@ -52,7 +42,7 @@ namespace Test.Library
         [Test]
         public void DefenseValueTest()
         {
-            int expectedDefense = 78;
+            int expectedDefense = 39;
             Assert.AreEqual(expectedDefense, this.arthur.DefenseValue);
         }
 
@@ -61,9 +51,6 @@ namespace Test.Library
         public void AttackCharacterTest()
         {
             Knight fernando = new Knight("Fernando");
-            fernando.AddItem(sword);
-            fernando.AddItem(shield);
-            fernando.AddItem(armor);
             fernando.ReceiveAttack(this.arthur.AttackValue);
             int expectedHealth = 100;
             Assert.AreEqual(expectedHealth, fernando.Health);
@@ -76,6 +63,29 @@ namespace Test.Library
             this.arthur.ReceiveAttack(this.arthur.AttackValue * 3);
             this.arthur.Cure();
             Assert.AreEqual(this.arthur.Health, 100);
+        }
+
+        //Test que demuestra que se le puede añadir un item nuevo a un personaje correctamente.
+        [Test]
+        public void AddItemTest()
+        {
+
+            this.sword = new Sword();
+            this.arthur.AddItem(sword);
+            int expectedAttack = 40;
+            Assert.AreEqual(this.arthur.AttackValue, expectedAttack);
+        }
+
+        //Test que demuestra que se le puede remover un item nuevo a un personaje correctamente.
+        [Test]
+        public void RemoveItemTest()
+        {
+            
+            this.sword = new Sword();
+            this.arthur.AddItem(sword);
+            this.arthur.RemoveItem(sword);
+            int expectedAttack = 20;
+            Assert.AreEqual(this.arthur.AttackValue, expectedAttack);
         }
     }
 }
