@@ -14,6 +14,7 @@ namespace Program
             Wizard gandalf = new Wizard("Gandalf");
             gandalf.AddItem(book);
 
+            Axe axe = new Axe();
             Dwarf gimli = new Dwarf("Gimli");
 
             Console.WriteLine($"Gimli has ❤️ {gimli.Health}");

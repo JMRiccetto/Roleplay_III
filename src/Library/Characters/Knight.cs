@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 namespace RoleplayGame
 {
-    public class Knight: ICharacter
+    public class Knight: Character
     {
         private int health = 100;
 
-        private List<IItem> items = new List<IItem>();
+        private List<Item> items = new List<Item>();
 
         public Knight(string name)
         {
@@ -23,11 +23,11 @@ namespace RoleplayGame
             get
             {
                 int value = 0;
-                foreach (IItem item in this.items)
+                foreach (Item item in this.items)
                 {
-                    if (item is IAttackItem)
+                    if (item is Item)
                     {
-                        value += (item as IAttackItem).AttackValue;
+                        value += (item as Item).AttackValue;
                     }
                 }
                 return value;
@@ -39,11 +39,11 @@ namespace RoleplayGame
             get
             {
                 int value = 0;
-                foreach (IItem item in this.items)
+                foreach (Item item in this.items)
                 {
-                    if (item is IDefenseItem)
+                    if (item is Item)
                     {
-                        value += (item as IDefenseItem).DefenseValue;
+                        value += (item as Item).DefenseValue;
                     }
                 }
                 return value;
@@ -62,7 +62,7 @@ namespace RoleplayGame
             }
         }
 
-        public void ReceiveAttack(int power)
+        public override void ReceiveAttack(int power)
         {
             if (this.DefenseValue < power)
             {
@@ -70,17 +70,17 @@ namespace RoleplayGame
             }
         }
 
-        public void Cure()
+        public override void Cure()
         {
             this.Health = 100;
         }
 
-        public void AddItem(IItem item)
+        public override void AddItem(Item item)
         {
             this.items.Add(item);
         }
 
-        public void RemoveItem(IItem item)
+        public override void RemoveItem(Item item)
         {
             this.items.Remove(item);
         }
